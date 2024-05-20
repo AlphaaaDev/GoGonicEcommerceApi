@@ -134,7 +134,6 @@ func main() {
 
 	controllers.RegisterUserRoutes(apiRouteGroup.Group("/users"))
 	controllers.RegisterProductRoutes(apiRouteGroup.Group("/products"))
-	controllers.RegisterPageRoutes(apiRouteGroup.Group("/"))
 	controllers.RegisterAddressesRoutes(apiRouteGroup.Group("/addresses"))
 	controllers.RegisterCategoryRoutes(apiRouteGroup.Group("/categories"))
 	controllers.RegisterOrderRoutes(apiRouteGroup.Group("/orders"))

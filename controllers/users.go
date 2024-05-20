@@ -20,15 +20,8 @@ func RegisterUserRoutes(router *gin.RouterGroup) {
 
 	router.Use(middlewares.EnforceAuthenticatedMiddleware())
 	{
-		router.GET("", GetUser)
 		router.PATCH("", PatchUser)
 	}
-}
-
-func GetUser(c *gin.Context) {
-	user := c.Keys["currentUser"].(models.User)
-
-	c.JSON(http.StatusOK, dtos.CreateUserDto(user))
 }
 
 func PatchUser(c *gin.Context) {

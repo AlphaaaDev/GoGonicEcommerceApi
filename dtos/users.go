@@ -41,9 +41,12 @@ func CreateLoginSuccessful(user *models.User) map[string]interface{} {
 		"success": true,
 		"token":   user.GenerateJwtToken(),
 		"user": map[string]interface{}{
-			"username": user.Username,
-			"id":       user.ID,
-			"roles":    roles,
+			"username":   user.Username,
+			"first_name": user.FirstName,
+			"last_name":  user.LastName,
+			"email":      user.Email,
+			"id":         user.ID,
+			"roles":      roles,
 		},
 	}
 }
