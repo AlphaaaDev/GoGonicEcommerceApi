@@ -1,7 +1,10 @@
 package dtos
 
 import (
+	"strings"
+
 	"github.com/AlphaaaDev/GoGonicEcommerceApi/models"
+	"github.com/AlphaaaDev/GoGonicEcommerceApi/services"
 )
 
 type CreateOrderRequestDto struct {
@@ -52,11 +55,19 @@ func CreateOrderDto(order models.Order, includes ...bool) map[string]interface{}
 		orderItems := make([]map[string]interface{}, len(order.OrderItems))
 		for i := 0; i < len(order.OrderItems); i++ {
 			oi := order.OrderItems[i]
+			p := services.FetchProductById(oi.ProductId)
+			var images = make([]string, len(p.Images))
+
+			replaceAllFlag := -1
+			for index, image := range p.Images {
+				images[index] = strings.Replace(image.FilePath, "\\", "/", replaceAllFlag)
+			}
 			orderItems[i] = map[string]interface{}{
-				"name":     oi.ProductName,
-				"slug":     oi.Slug,
-				"price":    oi.Price,
-				"quantity": oi.Quantity,
+				"name":       oi.ProductName,
+				"slug":       oi.Slug,
+				"price":      oi.Price,
+				"quantity":   oi.Quantity,
+				"image_urls": images,
 			}
 		}
 		result["order_items"] = orderItems
